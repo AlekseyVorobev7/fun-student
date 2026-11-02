@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head th:replace="~{fragments :: head('Студенты')}"></head>
+<body>
+<header th:replace="~{fragments :: nav}"></header>
+<main class="container">
+    <div class="page-head">
+        <div>
+            <h1>Студенты</h1>
+            <p class="muted">Всего: <span th:text="${students.totalCount}">0</span></p>
+        </div>
+        <a th:if="${isAdmin}" th:href="@{/students/new}" class="btn btn--primary">+ Добавить</a>
+    </div>
+
+    <div th:replace="~{fragments :: flash}"></div>
+
+    <div class="card">
+        <table class="table" th:unless="${#lists.isEmpty(students.response)}">
+            <thead>
+            <tr><th>ID</th><th>Имя</th><th>Фамилия</th><th></th></tr>
+            </thead>
+            <tbody>
+            <tr th:each="s : ${students.response}">
+                <td class="muted" th:text="${s.id}">1</td>
+                <td th:text="${s.name}">Ivan</td>
+                <td th:text="${s.surname}">Ivanov</td>
+                <td class="actions">
+                    <a th:href="@{/students/{id}(id=${s.id})}" class="btn btn--ghost btn--sm">Открыть</a>
+                    <a th:if="${isAdmin}" th:href="@{/students/{id}/edit(id=${s.id})}" class="btn btn--ghost btn--sm">Изменить</a>
+                    <form th:if="${isAdmin}" th:action="@{/students/{id}/delete(id=${s.id})}" method="post"
+                          onsubmit="return confirm('Удалить студента?')">
+                        <button type="submit" class="btn btn--danger btn--sm">Удалить</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <p th:if="${#lists.isEmpty(students.response)}" class="empty">Студентов пока нет.</p>
+    </div>
+</main>
+</body>
+</html>

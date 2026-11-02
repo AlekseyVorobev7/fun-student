@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head th:replace="~{fragments :: head('Нет доступа')}"></head>
+<body>
+<header th:replace="~{fragments :: nav}"></header>
+<main class="container container--narrow">
+    <div class="card">
+        <h1>Нет доступа</h1>
+        <p class="muted">У вашей роли нет прав на эту страницу.</p>
+        <a th:href="@{/}" class="btn btn--primary">На главную</a>
+    </div>
+</main>
+</body>
+</html>

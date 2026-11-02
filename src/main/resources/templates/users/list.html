@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head th:replace="~{fragments :: head('Пользователи')}"></head>
+<body>
+<header th:replace="~{fragments :: nav}"></header>
+<main class="container">
+    <div class="page-head">
+        <div>
+            <h1>Пользователи</h1>
+            <p class="muted">Всего: <span th:text="${users.totalCount}">0</span></p>
+        </div>
+        <a th:href="@{/users/new}" class="btn btn--primary">+ Добавить</a>
+    </div>
+
+    <div th:replace="~{fragments :: flash}"></div>
+
+    <div class="card">
+        <table class="table">
+            <thead>
+            <tr><th>ID</th><th>Email</th><th>Роли</th><th></th></tr>
+            </thead>
+            <tbody>
+            <tr th:each="u : ${users.responses}">
+                <td class="muted" th:text="${u.id}">1</td>
+                <td th:text="${u.email}">user@example.com</td>
+                <td><span th:each="r : ${u.roles}" class="tag" th:text="${r}">ADMIN</span></td>
+                <td class="actions">
+                    <form th:unless="${u.email == currentUser}" th:action="@{/users/{id}/delete(id=${u.id})}" method="post"
+                          onsubmit="return confirm('Удалить пользователя?')">
+                        <button type="submit" class="btn btn--danger btn--sm">Удалить</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+</body>
+</html>

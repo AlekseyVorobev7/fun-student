@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head th:replace="~{fragments :: head('Новый студент')}"></head>
+<body>
+<header th:replace="~{fragments :: nav}"></header>
+<main class="container container--narrow">
+    <a th:href="@{/students}" class="back">← Все студенты</a>
+    <div class="card">
+        <h1>Новый студент</h1>
+        <form th:action="@{/students}" th:object="${student}" method="post" class="form">
+            <label>Имя
+                <input type="text" th:field="*{name}" required>
+            </label>
+            <label>Фамилия
+                <input type="text" th:field="*{surname}" required>
+            </label>
+            <label>Телефон
+                <input type="tel" th:field="*{phoneNumber}">
+            </label>
+            <label>Email
+                <input type="email" th:field="*{email}">
+            </label>
+            <div class="row">
+                <button type="submit" class="btn btn--primary">Сохранить</button>
+                <a th:href="@{/students}" class="btn btn--ghost">Отмена</a>
+            </div>
+        </form>
+    </div>
+</main>
+</body>
+</html>

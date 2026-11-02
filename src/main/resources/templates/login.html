@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head th:replace="~{fragments :: head('Вход')}"></head>
+<body class="auth">
+<main class="card auth__card">
+    <h1>Fun Student</h1>
+    <p class="muted">Войдите, чтобы продолжить</p>
+
+    <div th:if="${param.error}" class="alert alert--err">Неверный email или пароль</div>
+    <div th:if="${param.logout}" class="alert alert--ok">Вы вышли из системы</div>
+
+    <form th:action="@{/login}" method="post" class="form">
+        <label>Email
+            <input type="email" name="email" required autofocus autocomplete="username">
+        </label>
+        <label>Пароль
+            <input type="password" name="password" required autocomplete="current-password">
+        </label>
+        <button type="submit" class="btn btn--primary btn--block">Войти</button>
+    </form>
+</main>
+</body>
+</html>

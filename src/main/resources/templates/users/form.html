@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head th:replace="~{fragments :: head('Новый пользователь')}"></head>
+<body>
+<header th:replace="~{fragments :: nav}"></header>
+<main class="container container--narrow">
+    <a th:href="@{/users}" class="back">← Все пользователи</a>
+    <div th:replace="~{fragments :: flash}"></div>
+    <div class="card">
+        <h1>Новый пользователь</h1>
+        <form th:action="@{/users}" th:object="${user}" method="post" class="form">
+            <label>Email
+                <input type="email" th:field="*{email}" required>
+            </label>
+            <label>Пароль
+                <input type="password" th:field="*{password}" required autocomplete="new-password">
+            </label>
+            <fieldset class="roles">
+                <legend>Роли</legend>
+                <label th:each="r : ${allRoles}" class="check">
+                    <input type="checkbox" th:field="*{roles}" th:value="${r}">
+                    <span th:text="${r}">ADMIN</span>
+                </label>
+            </fieldset>
+            <div class="row">
+                <button type="submit" class="btn btn--primary">Создать</button>
+                <a th:href="@{/users}" class="btn btn--ghost">Отмена</a>
+            </div>
+        </form>
+    </div>
+</main>
+</body>
+</html>

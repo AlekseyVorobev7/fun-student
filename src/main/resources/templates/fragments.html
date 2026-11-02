@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head th:fragment="head(title)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${title} + ' · Fun Student'">Fun Student</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+
+<header th:fragment="nav" class="topbar">
+    <div class="topbar__inner">
+        <a class="brand" th:href="@{/}">Fun&nbsp;Student</a>
+        <nav class="nav">
+            <a th:if="${canViewStudents}" th:href="@{/students}">Студенты</a>
+            <a th:if="${isSuperAdmin}" th:href="@{/users}">Пользователи</a>
+        </nav>
+        <div class="who" th:if="${currentUser}">
+            <span th:text="${currentUser}">user@example.com</span>
+            <form th:action="@{/logout}" method="post">
+                <button type="submit" class="btn btn--ghost btn--sm">Выйти</button>
+            </form>
+        </div>
+    </div>
+</header>
+
+<div th:fragment="flash">
+    <div th:if="${success}" class="alert alert--ok" th:text="${success}"></div>
+    <div th:if="${error}" class="alert alert--err" th:text="${error}"></div>
+</div>
+
+</body>
+</html>
